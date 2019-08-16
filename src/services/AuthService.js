@@ -19,6 +19,13 @@ const signIn = async ({ email, password }) => {
   
 };
 
+const register = async user => {
+  const newUser = await UserService.create(user);
+
+  return generatePayload(newUser);
+}
+
 export default {
   signIn,
+  register,
 }

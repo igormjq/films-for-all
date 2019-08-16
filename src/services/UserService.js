@@ -1,9 +1,16 @@
 import { User } from '../models'
 
-const findByEmail = async email => User.findOne({ where: { email }});
+const create = async ({ name, email, password }) => User.create({
+  name,
+  email,
+  password,
+});
 
-// async function create()
+const findByEmail = async email => User.findOne({ 
+  where: { email }
+});
 
 export default {
+  create,
   findByEmail,
 }

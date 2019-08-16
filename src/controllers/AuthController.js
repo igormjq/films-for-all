@@ -6,6 +6,13 @@ const signIn = async (req, res) => {
   res.json(payload);
 }
 
+const register = async (req, res) => {
+  const payload = await AuthService.register(req.body);
+
+  res.status(201).json(payload);
+}
+
 export default {
   signIn,
+  register,
 }
