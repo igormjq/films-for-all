@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import UserService from './UserService'
+import { NotFoundError, UnauthorizedError } from '../handlers/errors'
 
 const generatePayload = user => {
   return {
@@ -11,8 +12,8 @@ const generatePayload = user => {
 const signIn = async ({ email, password }) => {
   const user = await UserService.findByEmail(email);
 
-  if(!user || !user.passwordMatches(password))
-    throw new Error('User not found. Check your credentials');
+  if(!user) throw new NotFoundError('User not found. Check your credentials');
+  if(!user.passwordMatches(password)) throw new UnauthorizedError('Incorrect password');
 
   return generatePayload(user);
   
