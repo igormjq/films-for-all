@@ -6,6 +6,14 @@ const signIn = async (req, res) => {
   res.json(payload);
 }
 
+const signOut = async (req, res) => {
+  await AuthService.signOut(req.user);
+
+  res.status(204).json({
+    message: 'Logged out successfully'
+  });
+}
+
 const register = async (req, res) => {
   const payload = await AuthService.register(req.body);
 
@@ -14,5 +22,6 @@ const register = async (req, res) => {
 
 export default {
   signIn,
+  signOut,
   register,
 }

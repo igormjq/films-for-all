@@ -5,6 +5,7 @@ import AuthController from '../controllers/AuthController'
 const router = Router();
 
 router.post('/login', errorHandler(AuthController.signIn));
+router.post('/logout', errorHandler(AuthController.signOut));
 router.post('/register', errorHandler(AuthController.register));
 
 export default router;

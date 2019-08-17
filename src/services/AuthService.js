@@ -29,6 +29,14 @@ const signIn = async ({ email, password }) => {
   return generatePayload(user);
 }
 
+const signOut = async user => {
+  user.set('token', null);
+
+  await user.save();
+
+  return;
+}
+
 const register = async user => {
   const newUser = await UserService.create(user);
 
@@ -37,5 +45,6 @@ const register = async user => {
 
 export default {
   signIn,
+  signOut,
   register,
 }
