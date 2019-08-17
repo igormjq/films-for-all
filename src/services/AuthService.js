@@ -2,12 +2,23 @@ import jwt from 'jsonwebtoken'
 import UserService from './UserService'
 import { NotFoundError, UnauthorizedError } from '../handlers/errors'
 
-const generatePayload = user => {
+const generatePayload = async user => {
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 5000 });
+  user.set('token', token);
+  
+  await user.save();
+
+  const { id, name, email } = user;
+  
   return {
-    token: jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 5000 }),
-    user,
+    token,
+    user: {
+      id,
+      name,
+      email,
+    },
   }
-}; 
+}
 
 const signIn = async ({ email, password }) => {
   const user = await UserService.findByEmail(email);
@@ -16,8 +27,7 @@ const signIn = async ({ email, password }) => {
   if(!user.passwordMatches(password)) throw new UnauthorizedError('Incorrect password');
 
   return generatePayload(user);
-  
-};
+}
 
 const register = async user => {
   const newUser = await UserService.create(user);

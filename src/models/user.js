@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    token: {
+      type: DataTypes.STRING,
+    }
   }, {
     hooks: {
       async beforeCreate(user) {
