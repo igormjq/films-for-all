@@ -8,6 +8,9 @@ const create = async ({ title, director_id }) => Film.create({
 
 const list = async () => Film.findAll({
   include: [ Director ],
+  attributes: {
+    exclude: ['director_id']
+  }
 });
 
 const find = async id => Film.findByPk(id);
