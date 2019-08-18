@@ -6,6 +6,14 @@ class CustomError extends Error {
   }
 }
 
+export class ValidationError extends CustomError {
+  constructor(message, errors) {
+    super(message);
+    this.status = 400;
+    this.errors = errors.map(({ message, path }) => ( { message, path }));
+  }
+}
+
 export class BadRequestError extends CustomError {
   constructor(message) {
     super(message);

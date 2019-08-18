@@ -7,6 +7,7 @@
     "start": "nodemon --exec sucrase-node ./src/www/server.js"
   },
   "dependencies": {
+    "@hapi/joi": "^15.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dayjs": "^1.8.15",

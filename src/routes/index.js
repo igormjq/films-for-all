@@ -1,7 +1,9 @@
 import { Router } from 'express'
 import AuthMiddleware from '../middlewares/AuthMiddleware'
 import AuthController from '../controllers/AuthController'
+import Validate from '../middlewares/ValidationMiddlware'
 import { errorHandler } from '../handlers/errorHandler'
+import { AuthValidator } from '../utils/validators'
 /**
  * Routes
  */
@@ -11,7 +13,7 @@ import films from './film';
 const router = Router();
 
 router.post('/login', errorHandler(AuthController.signIn));
-router.post('/register', errorHandler(AuthController.register));
+router.post('/register', Validate(AuthValidator.register), errorHandler(AuthController.register));
 
 /**
  * Protected routes
