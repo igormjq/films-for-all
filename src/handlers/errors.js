@@ -4,7 +4,13 @@ class CustomError extends Error {
     this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);
   }
+}
 
+export class BadRequestError extends CustomError {
+  constructor(message) {
+    super(message);
+    this.status = 400;
+  }
 }
 
 export class NotFoundError extends CustomError {
