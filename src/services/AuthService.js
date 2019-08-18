@@ -47,8 +47,6 @@ const verifyToken = async token => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // if(!decoded) throw new UnauthorizedError('Invalid token');
-
     const user = await UserService.find(decoded.id);
 
     return user;
@@ -56,8 +54,6 @@ const verifyToken = async token => {
   } catch (err) {
     throw new UnauthorizedError('Invalid token');
   }
-
-  
 }
 
 export default {

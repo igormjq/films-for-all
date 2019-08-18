@@ -1,6 +1,6 @@
 import AuthService from '../services/AuthService';
 import { errorHandler } from '../handlers/errorHandler';
-import { BadRequestError, UnauthorizedError } from '../handlers/errors'
+import { BadRequestError } from '../handlers/errors'
 
 const extractJwtToken = req => {
 
@@ -13,7 +13,6 @@ const extractJwtToken = req => {
 };
 
 const authenticateUser = async (req, res, next) => {
-
   const token = extractJwtToken(req);
 
   const user = await AuthService.verifyToken(token);

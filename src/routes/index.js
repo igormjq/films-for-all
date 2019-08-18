@@ -1,15 +1,19 @@
 import { Router } from 'express'
 import AuthMiddleware from '../middlewares/AuthMiddleware'
-import auth from './auth'
+import { errorHandler } from '../handlers/errorHandler'
+import AuthController from '../controllers/AuthController'
 
-const router = Router()
+const router = Router();
 
-router.use('/auth', auth);
+router.post('/login', errorHandler(AuthController.signIn));
+router.post('/register', errorHandler(AuthController.register));
 
 /**
  * Protected routes
 */
 router.use(AuthMiddleware);
+
+router.post('/logout', errorHandler(AuthController.signOut));
 
 router.get('/', (req, res) => res.json({ 
   app: 'Films 4All API',
