@@ -6,11 +6,9 @@ const router = Router()
 
 router.use('/auth', auth);
 
-router.get('/', (req, res) => res.send('eu funfo sem auth'));
-
 /**
  * Protected routes
- */
+*/
 router.use(AuthMiddleware);
 
 router.get('/', (req, res) => res.json({ 
