@@ -12,7 +12,14 @@ const findByTitle = async (req, res) => {
   res.json({ data });
 }
 
+const update = async (req, res) => {
+  const data = await FilmService.update(req.params.id, req.body);
+
+  res.json({ data });
+}
+
 export default {
   list,
   findByTitle,
+  update,
 }
