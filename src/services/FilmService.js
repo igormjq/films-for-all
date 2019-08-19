@@ -3,21 +3,34 @@ import { Film, Director } from '../models'
 import { NotFoundError } from '../handlers/errors'
 
 const list = async () => Film.findAll({
-  include: [ Director ],
+  include: [
+    { model: Director, as :'director' },
+  ],
   attributes: {
     exclude: ['director_id']
   }
 });
 
-const create = async ({ title, director_id }) => Film.create({
-  title,
-  director_id,
+const create = async data => Film.create({
+  ...data,
+}, {
+  include: [
+    { model: Director, as :'director' },
+  ],
 });
 
 const update = async (id, data) => {
   const film = await find(id);
 
-  return film.update({ ...data });
+  const updatedFilm = await film.update({ 
+    ...data 
+  }, {
+    include: [
+      { model: Director, as: 'director' },
+    ]
+  });
+
+  return updatedFilm;
 };
 
 const find = async id => {
@@ -29,7 +42,9 @@ const find = async id => {
 
 const findByTitle = async ({ title }) => {
   return Film.findOne({
-    include: [ Director ],
+    include: [
+      { model: Director, as :'director' },
+    ],
     attributes: {
       exclude: ['director_id'],
     },

@@ -6,10 +6,10 @@ const list = async (req, res) => {
   res.json({ data });
 }
 
-const findByTitle = async (req, res) => {
-  const data = await FilmService.findByTitle(req.params);
+const create = async (req, res) => {
+  const data = await FilmService.create(req.body);
 
-  res.json({ data });
+  return res.status(201).json({ data });
 }
 
 const update = async (req, res) => {
@@ -18,8 +18,16 @@ const update = async (req, res) => {
   res.json({ data });
 }
 
+
+const findByTitle = async (req, res) => {
+  const data = await FilmService.findByTitle(req.params);
+
+  res.json({ data });
+}
+
 export default {
   list,
-  findByTitle,
+  create,
   update,
+  findByTitle,
 }

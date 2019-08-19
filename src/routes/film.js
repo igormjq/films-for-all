@@ -7,7 +7,8 @@ import Validate from '../middlewares/ValidationMiddlware'
 const router = Router();
 
 router.get('/', errorHandler(FilmController.list));
+router.post('/', Validate(FilmValidator.createOrUpdate), errorHandler(FilmController.create));
 router.get('/title/:title', errorHandler(FilmController.findByTitle));
-router.put('/:id', Validate(FilmValidator.update), errorHandler(FilmController.update));
+router.put('/:id', Validate(FilmValidator.createOrUpdate), errorHandler(FilmController.update));
 
 export default router;
