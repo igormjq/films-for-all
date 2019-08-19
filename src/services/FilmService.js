@@ -15,17 +15,23 @@ const list = async () => Film.findAll({
 
 const find = async id => Film.findByPk(id);
 
-const findByName = async name => Film.findOne({
-  where: {
-    title: {
-      [Op.like]: `%${name}%`
-    }
-  }
-})
+const findByTitle = async ({ title }) => {
+  return Film.findOne({
+    include: [ Director ],
+    attributes: {
+      exclude: ['director_id'],
+    },
+    where: {
+      title: {
+        [Op.like]: `%${title}%`
+      }
+    },
+  })
+}
 
 export default {
   create,
   list,
   find,
-  findByName,
+  findByTitle,
 }
