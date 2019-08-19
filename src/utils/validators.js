@@ -7,3 +7,10 @@ export const AuthValidator = {
     name: Joi.string().min(3).required(),
   })
 }
+
+export const FilmValidator = {
+  update: Joi.object().keys({
+    title: Joi.string(),
+    director_id: Joi.number().integer(),
+  })
+}
