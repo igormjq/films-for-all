@@ -1,5 +1,5 @@
 module.exports = {
-  up: queryInterface => queryInterface.bulkInsert('Films', [
+  up: queryInterface => queryInterface.bulkInsert('films', [
     { title: 'Taxi Driver', director_id: 1, },
     { title: 'Goodfellas', director_id: 1, },
     { title: 'Raging Bull', director_id: 1, },
@@ -11,5 +11,5 @@ module.exports = {
     { title: 'Full Metal Jacket', director_id: 3, },
     { title: '2001: A Space Odyssey', director_id: 3, },
   ]),
-  down: queryInterface => queryInterface.bulkDelete('Films', null, {})
+  down: queryInterface => queryInterface.bulkDelete('films', null, {})
 };

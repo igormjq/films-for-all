@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     }
   }, {
+    tableName: 'users',
     hooks: {
       async beforeCreate(user) {
         const salt = await bcrypt.genSalt(10)
