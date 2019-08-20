@@ -14,6 +14,9 @@ const list = async () => Film.findAll({
 const create = async data => Film.create({
   ...data,
 }, {
+  attributes: {
+    exclude: ['director_id'],
+  },
   include: [
     { model: Director, as :'director' },
   ],
@@ -56,10 +59,17 @@ const findByTitle = async ({ title }) => {
   })
 }
 
+const destroy = async ({ id }) => {
+  const film = await find(id);
+
+  await film.destroy();
+}
+
 export default {
   list,
   create,
   update,
   find,
   findByTitle,
+  destroy,
 }
