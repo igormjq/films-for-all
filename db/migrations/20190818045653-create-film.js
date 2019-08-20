@@ -13,7 +13,8 @@ module.exports = {
         references: {
           model: 'Directors',
           key: 'id',
-        }
+        },
+        onDelete: 'CASCADE',
       },
       title: {
         type: Sequelize.STRING

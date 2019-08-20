@@ -2,6 +2,11 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('Users', [
+    {
+      email: 'igormjq@gmail.com',
+      password: '12345',
+      name: 'Igor Quevedo'
+    },
     { 
       email: 'films_lover@gmail.com',
       password: bcrypt.hashSync('films4all', 10),
