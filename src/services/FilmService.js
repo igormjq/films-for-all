@@ -1,10 +1,11 @@
 import { Op } from 'sequelize'
-import { Film, Director } from '../models'
+import { Film, Director, Inventory } from '../models'
 import { NotFoundError } from '../handlers/errors'
 
 const list = async () => Film.findAll({
   include: [
     { model: Director, as :'director' },
+    { model: Inventory, as :'inventory' },
   ],
   attributes: {
     exclude: ['director_id']
@@ -13,12 +14,19 @@ const list = async () => Film.findAll({
 
 const create = async data => Film.create({
   ...data,
+  ...data.inventory && 
+    { amount: data.inventory.amount} || 
+    { inventory: {
+      amount: 0
+    }
+  }
 }, {
   attributes: {
     exclude: ['director_id'],
   },
   include: [
     { model: Director, as :'director' },
+    { model: Inventory, as: 'inventory' },
   ],
 });
 

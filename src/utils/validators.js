@@ -15,5 +15,8 @@ export const FilmValidator = {
       name: Joi.string().required(),
     }),
     director_id: Joi.number().integer(),
+    inventory: Joi.object().keys({
+      amount: Joi.number().integer().required()
+    })
   }).without('director', ['director_id'])
 }
