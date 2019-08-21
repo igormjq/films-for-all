@@ -9,7 +9,6 @@ import { AuthValidator } from '../utils/validators'
  */
 import films from './film';
 
-
 const router = Router();
 
 router.post('/login', errorHandler(AuthController.signIn));
