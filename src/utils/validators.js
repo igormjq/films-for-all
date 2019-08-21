@@ -9,7 +9,7 @@ export const AuthValidator = {
 }
 
 export const FilmValidator = {
-  createOrUpdate: Joi.object().keys({
+  create: Joi.object().keys({
     title: Joi.string(),
     director: Joi.object().keys({
       name: Joi.string().required(),
@@ -18,5 +18,9 @@ export const FilmValidator = {
     inventory: Joi.object().keys({
       amount: Joi.number().integer().required()
     })
-  }).without('director', ['director_id'])
+  }).without('director', ['director_id']),
+  update: Joi.object().keys({
+    title: Joi.string(),
+    director_id: Joi.number().integer(),
+  })
 }
