@@ -30,10 +30,17 @@ const destroy = async (req, res) => {
   res.sendStatus(204);
 }
 
+const addToInventory = async (req, res) => {
+  const data = await FilmService.addToInventory(req.params.id, req.body);
+
+  res.json({ data });
+}
+
 export default {
   list,
   create,
   update,
   findByTitle,
   destroy,
+  addToInventory,
 }

@@ -38,6 +38,7 @@ const update = async (id, data) => {
   }, {
     include: [
       { model: Director, as: 'director' },
+      { model: Inventory, as: 'inventory' },
     ]
   });
 
@@ -45,7 +46,9 @@ const update = async (id, data) => {
 };
 
 const find = async id => {
-  const film = await Film.findByPk(id);
+  const film = await Film.findByPk(id, {
+    include: { all: true }
+  })
   if(!film) throw new NotFoundError('Film not found');
 
   return film;
@@ -73,10 +76,26 @@ const destroy = async ({ id }) => {
   await film.destroy();
 }
 
+const addToInventory = async (filmId, { amount }) => {
+  const film = await find(filmId);
+  const inventory = await film.getInventory();
+
+  console.log('film has => ', inventory.amount);
+
+  inventory.set('amount', inventory.get('amount') + amount);
+
+  console.log('now it has => ', inventory.amount);
+
+  await inventory.save();
+
+  return film;
+}
+
 export default {
   list,
   create,
   update,
+  addToInventory,
   find,
   findByTitle,
   destroy,
