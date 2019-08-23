@@ -34,4 +34,14 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+/**
+ * Association hooks
+ */
+db.Film.addScope('complete', {
+  include: [
+    { model: db.Director, as: 'director' },
+    { model: db.Inventory, as: '' }
+  ]
+})
+
 module.exports = db;
