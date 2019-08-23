@@ -22,6 +22,11 @@ router
 /**
  * Specific routes
  */
-router.post('/:id/inventory/add', Validate(FilmValidator.updateInventory), errorHandler(FilmController.addToInventory));
+router.post('/:id/inventory/add', 
+  Validate(FilmValidator.updateInventory), 
+  errorHandler(FilmController.addToInventory)
+);
+
+router.get('/title/:title', errorHandler(FilmController.findByTitle));
 
 export default router;

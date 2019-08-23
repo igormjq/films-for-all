@@ -38,22 +38,14 @@ const update = async (id, data) => {
 };
 
 const find = async id => {
-  const film = await Film.findByPk(id, {
-    include: { all: true }
-  })
+  const film = await Film.scope('complete').findByPk(id)
   if(!film) throw new NotFoundError('Film not found');
 
   return film;
 };
 
 const findByTitle = async ({ title }) => {
-  return Film.findOne({
-    include: [
-      { model: Director, as :'director' },
-    ],
-    attributes: {
-      exclude: ['director_id'],
-    },
+  return Film.scope('complete').findOne({
     where: {
       title: {
         [Op.like]: `%${title}%`
