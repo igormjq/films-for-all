@@ -80,15 +80,13 @@ const addToInventory = async (filmId, { amount }) => {
   const film = await find(filmId);
   const inventory = await film.getInventory();
 
-  console.log('film has => ', inventory.amount);
+  await inventory.update({
+    amount: inventory.get('amount') + amount,
+  });
 
-  inventory.set('amount', inventory.get('amount') + amount);
-
-  console.log('now it has => ', inventory.amount);
-
-  await inventory.save();
-
-  return film;
+  return inventory.getFilm({
+    include: { all: true }
+  });
 }
 
 export default {
