@@ -4,7 +4,17 @@ module.exports = (sequelize, DataTypes) => {
     amount: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-    }
+    },
+    rented: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    available: {
+      type: new DataTypes.VIRTUAL(DataTypes.INTEGER),
+      get() {
+        return this.amount - this.rented;
+      }
+    },
   }, {
     tableName: 'inventory'
   });

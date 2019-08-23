@@ -22,9 +22,6 @@ export const FilmValidator = {
   update: Joi.object().keys({
     title: Joi.string(),
     director_id: Joi.number().integer(),
-    inventory: Joi.object().keys({
-      amount: Joi.number().integer().required(),
-    })
   }),
   updateInventory: Joi.object().keys({
     amount: Joi.number().integer().required(),
