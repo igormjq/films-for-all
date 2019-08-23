@@ -6,6 +6,12 @@ const list = async (req, res) => {
   res.json({ data });
 }
 
+const findById = async (req, res) => {
+  const data = await FilmService.findById(req.params.id);
+
+  res.json({ data });
+}
+
 const create = async (req, res) => {
   const data = await FilmService.create(req.body);
 
@@ -41,6 +47,7 @@ export default {
   create,
   update,
   findByTitle,
+  findById,
   destroy,
   addToInventory,
 }

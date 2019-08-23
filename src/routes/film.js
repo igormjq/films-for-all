@@ -16,6 +16,7 @@ router
 
 router
   .route('/:id')
+    .get(errorHandler(FilmController.findById))
     .put(Validate(FilmValidator.update), errorHandler(FilmController.update))
     .delete(errorHandler(FilmController.destroy))
 

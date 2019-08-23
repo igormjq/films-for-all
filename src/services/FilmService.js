@@ -23,7 +23,7 @@ const create = async data => Film.create({
 });
 
 const update = async (id, data) => {
-  const film = await find(id);
+  const film = await findById(id);
 
   const updatedFilm = await film.update({ 
     ...data 
@@ -37,7 +37,7 @@ const update = async (id, data) => {
   return updatedFilm;
 };
 
-const find = async id => {
+const findById = async id => {
   const film = await Film.scope('complete').findByPk(id)
   if(!film) throw new NotFoundError('Film not found');
 
@@ -55,13 +55,13 @@ const findByTitle = async ({ title }) => {
 }
 
 const destroy = async ({ id }) => {
-  const film = await find(id);
+  const film = await findById(id);
 
   await film.destroy();
 }
 
 const addToInventory = async (filmId, { amount }) => {
-  const film = await find(filmId);
+  const film = await findById(filmId);
   const inventory = await film.getInventory();
 
   await inventory.update({
@@ -78,7 +78,7 @@ export default {
   create,
   update,
   addToInventory,
-  find,
+  findById,
   findByTitle,
   destroy,
 }
