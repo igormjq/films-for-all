@@ -1,7 +1,6 @@
 import { Rental } from '../models'
-import FilmService from './FilmService'
 
-const build = async filmId => {
+const build = async () => {
   return Rental.build({
     rental_date: new Date()
   });
