@@ -11,7 +11,7 @@ module.exports ={
     define: {
       defaultScope: {
         attributes: {
-          exclude: ['createdAt', 'updatedAt']
+          exclude: ['createdAt', 'updatedAt'],
         }
       }
     }

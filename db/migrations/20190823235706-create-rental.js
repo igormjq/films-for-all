@@ -23,10 +23,10 @@ module.exports = {
         }
       },
       rental_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       return_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       createdAt: {
         allowNull: false,

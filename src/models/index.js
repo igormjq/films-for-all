@@ -38,7 +38,10 @@ db.Sequelize = Sequelize;
  * Association hooks
  */
 db.Film.addScope('complete', {
-  include: { all: true }
-})
+  include: { all: true },
+  attributes: {
+    exclude: ['createdAt', 'updatedAt'],
+  }
+});
 
 module.exports = db;

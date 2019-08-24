@@ -26,7 +26,9 @@ router
 router.post('/:id/inventory/add', 
   Validate(FilmValidator.updateInventory), 
   errorHandler(FilmController.addToInventory)
-);
+)
+
+router.post('/:id/rent', FilmController.rentFilm);
 
 router.get('/title/:title', errorHandler(FilmController.findByTitle));
 

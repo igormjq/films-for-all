@@ -42,6 +42,12 @@ const addToInventory = async (req, res) => {
   res.json({ data });
 }
 
+const rentFilm = async (req, res) => {
+  const data = await FilmService.rentFilm(req.params.id, req.user);
+
+  res.json({ data });
+}
+
 export default {
   list,
   create,
@@ -50,4 +56,5 @@ export default {
   findById,
   destroy,
   addToInventory,
+  rentFilm,
 }

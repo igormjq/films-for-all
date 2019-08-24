@@ -8,6 +8,7 @@ import { AuthValidator } from '../utils/validators'
  * Routes
  */
 import films from './film';
+import rentals from './rental';
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router.use(AuthMiddleware);
 
 router.post('/logout', errorHandler(AuthController.signOut));
 router.use('/films', films);
+router.use('/rentals', rentals);
 
 router.get('/', (req, res) => res.json({ 
   app: 'Films 4All API',
