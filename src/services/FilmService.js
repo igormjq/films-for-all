@@ -46,6 +46,16 @@ const findById = async id => {
   return film;
 };
 
+const findAvailable = async () => Film.findAll({
+  include: [
+    { 
+      model: Inventory, 
+      as: 'inventory',
+    },
+    { all: true },
+  ]
+});
+
 const findByTitle = async ({ title }) => {
   return Film.scope('complete').findOne({
     where: {
@@ -117,6 +127,7 @@ export default {
   update,
   addToInventory,
   findById,
+  findAvailable,
   findByTitle,
   destroy,
   rentFilm,

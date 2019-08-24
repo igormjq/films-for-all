@@ -24,6 +24,12 @@ const update = async (req, res) => {
   res.json({ data });
 }
 
+const findAvailable = async (req, res) => {
+  const data = await FilmService.findAvailable();
+
+  return res.json({ data });
+}
+
 const findByTitle = async (req, res) => {
   const data = await FilmService.findByTitle(req.params);
 
@@ -54,6 +60,7 @@ export default {
   update,
   findByTitle,
   findById,
+  findAvailable,
   destroy,
   addToInventory,
   rentFilm,

@@ -6,30 +6,19 @@ import Validate from '../middlewares/ValidationMiddlware'
 
 const router = Router();
 
-/**
- * General routes
- */
-router
-  .route('/')
-    .get(errorHandler(FilmController.list))
-    .post(Validate(FilmValidator.create), errorHandler(FilmController.create))
+router.get('/', errorHandler(FilmController.list))
+router.post('/', Validate(FilmValidator.create), errorHandler(FilmController.create));
 
-router
-  .route('/:id')
-    .get(errorHandler(FilmController.findById))
-    .put(Validate(FilmValidator.update), errorHandler(FilmController.update))
-    .delete(errorHandler(FilmController.destroy))
+router.get('/available', FilmController.findAvailable);
+router.get('/title/:title', errorHandler(FilmController.findByTitle));
 
-/**
- * Specific routes
- */
+router.get('/:id', errorHandler(FilmController.findById))
+router.put('/:id', Validate(FilmValidator.update), errorHandler(FilmController.update))
+router.delete('/:id', errorHandler(FilmController.destroy));
+router.post('/:id/rent', FilmController.rentFilm);
 router.post('/:id/inventory/add', 
   Validate(FilmValidator.updateInventory), 
   errorHandler(FilmController.addToInventory)
-)
-
-router.post('/:id/rent', FilmController.rentFilm);
-
-router.get('/title/:title', errorHandler(FilmController.findByTitle));
+);
 
 export default router;
