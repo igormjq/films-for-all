@@ -57,14 +57,20 @@ const destroy = async ({ id }) => {
   await film.destroy();
 }
 
-const addToInventory = async (filmId, { amount }) => {
+const addCopyToInventory = async (filmId, { amount }) => {
   const film = await findById(filmId);
 
-  await inventory.update({
+  await film.update({
     copies: film.get('copies') + amount,
   });
 
   return film;
+}
+
+const rentUnity = async (film, options) => {
+  return film.update({
+    rented: film.get('rented') + 1,
+  }, { ...options });
 }
 
 const checkInventory = async film => film.get('available') > 0
@@ -73,10 +79,11 @@ export default {
   list,
   create,
   update,
-  addToInventory,
+  addCopyToInventory,
   findById,
   findAvailable,
   findByTitle,
   destroy,
   checkInventory,
+  rentUnity,
 }

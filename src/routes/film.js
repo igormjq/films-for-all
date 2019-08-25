@@ -19,7 +19,7 @@ router.delete('/:id', errorHandler(FilmController.destroy));
 router.post('/:id/rent', errorHandler(RentalController.rentFilm));
 router.post('/:id/inventory/add', 
   Validate(FilmValidator.updateInventory), 
-  errorHandler(FilmController.addToInventory)
+  errorHandler(FilmController.addCopyToInventory)
 );
 
 export default router;
