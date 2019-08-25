@@ -1,7 +1,7 @@
 import { Rental } from '../models'
 import db from '../models'
 import FilmService from './FilmService'
-import { BadRequestError } from '../handlers/errors'
+import { BadRequestError, NotFoundError } from '../handlers/errors'
 
 const build = async (film, customer, t) => {
   const rental = await Rental.build({
@@ -16,7 +16,13 @@ const build = async (film, customer, t) => {
 
 const list = async () => Rental.scope('withCustomerAndFilm').findAll();
 
-const findById = async id => Rental.scope('withCustomerAndFilm').findByPk(id);
+const findById = async id => {
+  const rental = await Rental.scope('withCustomerAndFilm').findByPk(id);
+
+  if(!rental) throw new NotFoundError('This rental does not exist');
+
+  return rental;
+};
 
 const rentFilm = async (filmId, user) => {
   let result = await db.sequelize.transaction(async t => {
@@ -39,10 +45,14 @@ const returnRentedFilm = async rentalId => {
   await db.sequelize.transaction(async t => {
     const rental = await findById(rentalId);
 
-    console.log('rentalll', rental);
+    const film = await rental.getFilm();
 
+    await FilmService.returnUnity(film, { transaction: t, lock: true });
 
-  })
+    return t;
+  });
+
+  return true;
 }
 
 export default {

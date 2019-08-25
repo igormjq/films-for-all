@@ -73,6 +73,12 @@ const rentUnity = async (film, options) => {
   }, { ...options });
 }
 
+const returnUnity = async (film, options) => {
+  return film.update({
+    rented: film.get('rented') - 1,
+  }, { ...options })
+}
+
 const checkInventory = async film => film.get('available') > 0
 
 export default {
@@ -86,4 +92,5 @@ export default {
   destroy,
   checkInventory,
   rentUnity,
+  returnUnity,
 }
