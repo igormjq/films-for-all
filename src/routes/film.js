@@ -10,7 +10,7 @@ const router = Router();
 router.get('/', errorHandler(FilmController.list))
 router.post('/', Validate(FilmValidator.create), errorHandler(FilmController.create));
 
-router.get('/available', FilmController.findAvailable);
+router.get('/available', errorHandler(FilmController.findAvailable));
 router.get('/title/:title', errorHandler(FilmController.findByTitle));
 
 router.get('/:id', errorHandler(FilmController.findById))

@@ -1,6 +1,7 @@
-import { Rental } from '../models'
+import { Rental, User, Inventory } from '../models'
 import db from '../models'
 import FilmService from './FilmService'
+import { BadRequestError } from '../handlers/errors'
 
 const build = async () => {
   return Rental.build({
@@ -9,7 +10,16 @@ const build = async () => {
 }
 
 const list = async () => Rental.findAll({ include: { all: true }})
-const findById = async id => Rental.findByPk(id, { include: { all: true }});
+const findById = async id => Rental.findByPk(id, {
+  include: [
+    { model: Inventory, as: 'filmInventory', include: { all: true } },
+    { 
+      model: User, 
+      as: 'customer',
+      attributes: ['id', 'name', 'email'],
+    }
+  ]
+});
 
 const rentFilm = async (filmId, user) => {
   let result = await db.sequelize.transaction(async t => {

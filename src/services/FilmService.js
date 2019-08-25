@@ -49,6 +49,11 @@ const findAvailable = async () => Film.findAll({
     { 
       model: Inventory, 
       as: 'inventory',
+      where: {
+        available: {
+          [Op.gt]: 0,
+        }
+      }
     },
     { all: true },
   ]
