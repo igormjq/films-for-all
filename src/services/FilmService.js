@@ -1,8 +1,6 @@
 import { Op } from 'sequelize'
 import { Film, Director, Inventory } from '../models'
-import db from '../models'
-import { NotFoundError, BadRequestError } from '../handlers/errors'
-import RentalService from '../services/RentalService'
+import { NotFoundError } from '../handlers/errors'
 
 const list = async () => Film.scope('complete').findAll();
 
@@ -94,33 +92,6 @@ const checkInventory = async film => {
   }
 }
 
-const rentFilm = async (filmId, user) => {
-  try {
-    let result = await db.sequelize.transaction(async t => {
-      const film = await findById(filmId);
-      const { isAvailable, inventory } = await checkInventory(film);
-
-      if(!isAvailable) throw new BadRequestError('Não há cópias disponíveis deste filme em estoque');
-
-      const rentedFilm = await inventory.update({
-        rented: inventory.get('rented') + 1,
-      }, { transaction: t });
-
-      const rental = await RentalService.build();
-
-      await rental.setFilmInventory(rentedFilm, { transaction: t });
-      await rental.setCustomer(user, { transaction: t });
-
-      return rental.save({ transaction: t });
-    });
-    
-    return findById(filmId);
-
-  } catch(err) {
-    throw err;
-  }
-}
-
 export default {
   list,
   create,
@@ -130,5 +101,5 @@ export default {
   findAvailable,
   findByTitle,
   destroy,
-  rentFilm,
+  checkInventory,
 }
