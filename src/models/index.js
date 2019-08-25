@@ -44,4 +44,18 @@ db.Film.addScope('complete', {
   }
 });
 
+db.Rental.addScope('withCustomerAndFilm', {
+  attributes: {
+    exclude: ['createdAt', 'updatedAt'],
+  },
+  include: [
+    { model: db.Inventory, as: 'filmInventory', include: { all: true } },
+    { 
+      model: db.User, 
+      as: 'customer',
+      attributes: ['id', 'name', 'email'],
+    }
+  ]
+})
+
 module.exports = db;

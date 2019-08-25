@@ -9,17 +9,9 @@ const build = async () => {
   });
 }
 
-const list = async () => Rental.findAll({ include: { all: true }})
-const findById = async id => Rental.findByPk(id, {
-  include: [
-    { model: Inventory, as: 'filmInventory', include: { all: true } },
-    { 
-      model: User, 
-      as: 'customer',
-      attributes: ['id', 'name', 'email'],
-    }
-  ]
-});
+const list = async () => Rental.scope('withCustomerAndFilm').findAll();
+
+const findById = async id => Rental.scope('withCustomerAndFilm').findByPk(id);
 
 const rentFilm = async (filmId, user) => {
   let result = await db.sequelize.transaction(async t => {
