@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  Rental.associate = function({ User, Inventory }) {
+  Rental.associate = function({ User, Film }) {
     this.belongsTo(User, { foreignKey: 'customer_id', as: 'customer' });
-    this.belongsTo(Inventory, { foreignKey: 'inventory_id', as: 'filmInventory' });
+    this.belongsTo(Film, { foreignKey: 'film_id', as: 'film' });
   };
   return Rental;
 };

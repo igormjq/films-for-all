@@ -19,6 +19,14 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
+      copies: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
+      },
+      rented: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -6,19 +6,9 @@ const list = async () => Film.scope('complete').findAll();
 
 const create = async data => Film.create({
   ...data,
-  ...data.inventory && 
-    { amount: data.inventory.amount} || 
-    { inventory: {
-      amount: 0
-    }
-  }
 }, {
-  attributes: {
-    exclude: ['director_id'],
-  },
   include: [
     { model: Director, as :'director' },
-    { model: Inventory, as: 'inventory' },
   ],
 });
 
@@ -30,7 +20,6 @@ const update = async (id, data) => {
   }, {
     include: [
       { model: Director, as: 'director' },
-      { model: Inventory, as: 'inventory' },
     ]
   });
 
@@ -45,18 +34,11 @@ const findById = async id => {
 };
 
 const findAvailable = async () => Film.findAll({
-  include: [
-    { 
-      model: Inventory, 
-      as: 'inventory',
-      where: {
-        available: {
-          [Op.gt]: 0,
-        }
-      }
-    },
-    { all: true },
-  ]
+  where: {
+    available: {
+      [Op.gt]: 0,
+    }
+  }
 });
 
 const findByTitle = async ({ title }) => {
@@ -77,25 +59,15 @@ const destroy = async ({ id }) => {
 
 const addToInventory = async (filmId, { amount }) => {
   const film = await findById(filmId);
-  const inventory = await film.getInventory();
 
   await inventory.update({
-    amount: inventory.get('amount') + amount,
+    copies: film.get('copies') + amount,
   });
 
-  return inventory.getFilm({
-    include: { all: true }
-  });
+  return film;
 }
 
-const checkInventory = async film => {
-  const inventory = await film.getInventory();
-
-  return {
-    isAvailable: inventory.get('available') > 0,
-    inventory,
-  }
-}
+const checkInventory = async film => film.get('available') > 0
 
 export default {
   list,

@@ -49,12 +49,12 @@ db.Rental.addScope('withCustomerAndFilm', {
     exclude: ['createdAt', 'updatedAt'],
   },
   include: [
-    { model: db.Inventory, as: 'filmInventory', include: { all: true } },
     { 
       model: db.User, 
       as: 'customer',
       attributes: ['id', 'name', 'email'],
-    }
+    },
+    { model: db.Film, as: 'film', include: { all: true }},
   ]
 })
 
