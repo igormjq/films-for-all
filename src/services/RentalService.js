@@ -52,16 +52,14 @@ const returnRentedFilm = async (rentalId, user) => {
 
     await FilmService.returnUnity(film, { transaction: t, lock: true });
 
-    await rental.update({
-      return_date: new Date()
-    });
+    await rental.update({ return_date: new Date() });
 
     await rental.destroy();
 
-    return t;
+    return rental;
   });
 
-  return true;
+  return Rental.scope('withCustomerAndFilm').findByPk(rentalId, { paranoid: false });
 }
 
 export default {

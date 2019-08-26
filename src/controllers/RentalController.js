@@ -6,11 +6,10 @@ const list = async (req, res) => {
   res.json({ data });
 }
 
-
 const rentFilm = async (req, res) => {
   const data = await RentalService.rentFilm(req.params.filmId, req.user);
 
-  res.json({ data });
+  res.status(201).json({ data });
 }
 
 const returnRentedFilm = async (req, res) => {
