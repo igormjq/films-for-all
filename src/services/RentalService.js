@@ -2,7 +2,7 @@ import { Rental } from '../models'
 import db from '../models'
 import FilmService from './FilmService'
 import UserService from './UserService'
-import { BadRequestError, NotFoundError, UnauthorizedError } from '../handlers/errors'
+import { BadRequestError, NotFoundError } from '../handlers/errors'
 
 const build = async (film, customer, t) => {
   const rental = await Rental.build({
@@ -55,6 +55,8 @@ const returnRentedFilm = async (rentalId, user) => {
     await rental.update({
       return_date: new Date()
     });
+
+    await rental.destroy();
 
     return t;
   });
