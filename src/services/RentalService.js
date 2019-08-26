@@ -1,6 +1,7 @@
 import { Rental } from '../models'
 import db from '../models'
 import FilmService from './FilmService'
+import UserService from './UserService'
 import { BadRequestError, NotFoundError, UnauthorizedError } from '../handlers/errors'
 
 const build = async (film, customer, t) => {
@@ -45,8 +46,7 @@ const returnRentedFilm = async (rentalId, user) => {
   await db.sequelize.transaction(async t => {
     const rental = await findById(rentalId);
 
-    if (rental.customer_id !== user.id) 
-      throw new UnauthorizedError('This rental does not belong to the current user');
+    UserService.isSameUser(rental.customer_id, user);
 
     const film = await rental.getFilm();
 
