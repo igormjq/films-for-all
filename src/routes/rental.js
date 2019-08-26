@@ -8,14 +8,8 @@ const router = Router();
 /**
  * General routes
  */
-router
-  .route('/')
-    .get(errorHandler(RentalController.list))
-
-// router
-//   .route('/:id')
-//     .get(errorHandler(RentalController.findById))
-//     .put(Validate(FilmValidator.update), errorHandler(RentalController.update))
-//     .delete(errorHandler(RentalController.destroy))
+router.get('/', errorHandler(RentalController.list));
+router.post('/rent/:filmId', errorHandler(RentalController.rentFilm));
+router.post('/:rentalId/return', errorHandler(RentalController.returnRentedFilm));
 
 export default router;

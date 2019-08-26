@@ -49,6 +49,12 @@ const returnRentedFilm = async rentalId => {
 
     await FilmService.returnUnity(film, { transaction: t, lock: true });
 
+    await rental.update({
+      return_date: new Date()
+    });
+
+    console.log('esta assim', rental);
+
     return t;
   });
 

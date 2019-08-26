@@ -8,7 +8,13 @@ const list = async (req, res) => {
 
 
 const rentFilm = async (req, res) => {
-  const data = await RentalService.rentFilm(req.params.id, req.user);
+  const data = await RentalService.rentFilm(req.params.filmId, req.user);
+
+  res.json({ data });
+}
+
+const returnRentedFilm = async (req, res) => {
+  const data = await RentalService.returnRentedFilm(req.params.rentalId, req.user);
 
   res.json({ data });
 }
@@ -16,4 +22,5 @@ const rentFilm = async (req, res) => {
 export default {
   list,
   rentFilm,
+  returnRentedFilm,
 }
