@@ -9,7 +9,8 @@
     "db:drop": "sequelize db:drop --debug",
     "db:migrate": "sequelize db:migrate --debug",
     "db:seed": "sequelize db:seed:all --debug",
-    "db:setup": "npm-run-all db:drop db:create db:migrate db:seed"
+    "db:setup": "npm-run-all db:drop db:create db:migrate db:seed",
+    "docs:generate": "apidoc -f docs.js -o docs/"
   },
   "dependencies": {
     "@hapi/joi": "^15.1.1",

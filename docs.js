@@ -1,7 +1,7 @@
 /**
  * @apiDefine Authorization
  * * @apiHeader {String} Authorization Bearer {{ token }}
- * @apiHeaderExample {json} Header-Example:
+ * @apiHeaderExample {json} Exemplo - Cabeçalho:
  * {
  *    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY2ODU5MjU3LCJleHAiOjE1NjY4NjQyNTd9.PW8LXAw1M0IDen5IeeC-crXo_YbHzWx8EVgpLZkm_J4"
  * }
@@ -36,7 +36,7 @@
  */
 
  /**
- * @api {post} /register Cadastro
+ * @api {post} /register Cadastro de usuário
  * @apiGroup Auth 
  * 
  * @apiParam {String} email E-mail do usuário
@@ -70,15 +70,55 @@
 /** Films */
 
 /**
- * @api { get } /films
+ * @api { get } /films Listagem de filmes
  * @apiGroup Filmes
  * 
- * @apiSuccess (201 Created) {Object} data Listagem completa de filmes
+ * @apiSuccess (200) {Array} data[] Listagem completa de filmes
+ * 
+ * @apiSuccessExample {json} Exemplo - Resposta:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "data": [
+ *      {
+ *        "id": 1,
+ *        "title": "Goodfellas",
+ *        "copies": 3,
+ *        "rented": 1,  
+ *        "available": 4,
+ *        "director_id": 1,
+ *        "director": {
+ *          "id": 1,
+ *          "name": "Martin Scorsese"
+ *         }
+ *      }
+ *     ]
+ *  }
+ * 
+ * @apiUse Authorization
  */
 
  /**
- * @api { post } /films
+ * @api { post } /films Cadastro de filme
  * @apiGroup Filmes
  * 
- * @apiSuccess
+ * @apiParam {String} title Requerido. Título do filme
+ * @apiParam {String} director_id Opcional. ID do diretor do filme. Não deve coexistir com o campo 'director'
+ * @apiParam {String} director Opcional. Cria um novo diretor e associa ao filme. Não deve coexistir com o campo 'director_id'
+ * @apiParam {String} director.name Requerido. Nome do diretor a ser criado
+ * 
+ * @apiParamExample {json} Exemplo - Cadastro com referência a um diretor existente
+ * {
+ *  "title": "The Godfather",
+ *   "director_id": 1
+ * }
+ * @apiParamExample {json} Exemplo - Cadastro com criação de um diretor
+ * {
+ *  "title": "The Fly",
+ *   "director": {
+ *      "name": "David Cronenberg"
+ *    }
+ * }
+ * 
+ * @apiParamEx
+ * @apiUse Authorization
  */
