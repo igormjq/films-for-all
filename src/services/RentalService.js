@@ -1,7 +1,7 @@
 import { Rental } from '../models'
 import db from '../models'
 import FilmService from './FilmService'
-import { BadRequestError, NotFoundError } from '../handlers/errors'
+import { BadRequestError, NotFoundError, UnauthorizedError } from '../handlers/errors'
 
 const build = async (film, customer, t) => {
   const rental = await Rental.build({
@@ -41,9 +41,12 @@ const rentFilm = async (filmId, user) => {
   return findById(result.id);
 }
 
-const returnRentedFilm = async rentalId => {
+const returnRentedFilm = async (rentalId, user) => {
   await db.sequelize.transaction(async t => {
     const rental = await findById(rentalId);
+
+    if (rental.customer_id !== user.id) 
+      throw new UnauthorizedError('This rental does not belong to the current user');
 
     const film = await rental.getFilm();
 
@@ -52,8 +55,6 @@ const returnRentedFilm = async rentalId => {
     await rental.update({
       return_date: new Date()
     });
-
-    console.log('esta assim', rental);
 
     return t;
   });
