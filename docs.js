@@ -1,17 +1,3 @@
-import { Router } from 'express'
-import AuthMiddleware from '../middlewares/AuthMiddleware'
-import AuthController from '../controllers/AuthController'
-import Validate from '../middlewares/ValidationMiddlware'
-import { errorHandler } from '../handlers/errorHandler'
-import { AuthValidator } from '../utils/validators'
-/**
- * Routes
- */
-import films from './film';
-import rentals from './rental';
-
-const router = Router();
-
 /**
  * @apiDefine Authorization
  * * @apiHeader {String} Authorization Bearer {{ token }}
@@ -23,7 +9,9 @@ const router = Router();
  * @apiError UnauthorizedError Não autorizado
  */
 
-/**
+ /** Auth */
+
+ /**
  * @api {post} /login Login
  * @apiGroup Auth 
  * 
@@ -46,9 +34,8 @@ const router = Router();
  * 
  * @apiError UnauthorizedError Usuário não encontrado. Verifique suas credenciais 
  */
-router.post('/login', errorHandler(AuthController.signIn));
 
-/**
+ /**
  * @api {post} /register Cadastro
  * @apiGroup Auth 
  * 
@@ -72,27 +59,26 @@ router.post('/login', errorHandler(AuthController.signIn));
  * 
  * @apiError ValidationError Erro de validação com descrição dos campos não adequados
  */
-router.post('/register', Validate(AuthValidator.register), errorHandler(AuthController.register));
 
-/**
- * Protected routes
-*/
-router.use(AuthMiddleware);
-
-/**
+ /**
  * @api {post} /logout Logout
  * @apiGroup Auth 
  * 
  * @apiUse Authorization
  */
 
-router.post('/logout', errorHandler(AuthController.signOut));
-router.use('/films', films);
-router.use('/rentals', rentals);
+/** Films */
 
-router.get('/', (req, res) => res.json({ 
-  app: 'Films 4All API',
-  version: '1.0.0'
-}));
+/**
+ * @api { get } /films
+ * @apiGroup Filmes
+ * 
+ * @apiSuccess (201 Created) {Object} data Listagem completa de filmes
+ */
 
-export default router;
+ /**
+ * @api { post } /films
+ * @apiGroup Filmes
+ * 
+ * @apiSuccess
+ */
