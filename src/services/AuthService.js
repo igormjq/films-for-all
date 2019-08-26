@@ -23,8 +23,8 @@ const generatePayload = async user => {
 const signIn = async ({ email, password }) => {
   const user = await UserService.findByEmail(email);
 
-  if(!user) throw new NotFoundError('User not found. Check your credentials');
-  if(!user.passwordMatches(password)) throw new UnauthorizedError('Incorrect password');
+  if(!user) throw new NotFoundError('Usuário não encontrado. Verifique suas credenciais');
+  if(!user.passwordMatches(password)) throw new UnauthorizedError('Senha incorreta');
 
   return generatePayload(user);
 }
@@ -52,7 +52,7 @@ const verifyToken = async token => {
     return user;
 
   } catch (err) {
-    throw new UnauthorizedError('Invalid token');
+    throw new UnauthorizedError('Token inválido');
   }
 }
 

@@ -20,7 +20,7 @@ const list = async () => Rental.scope('withCustomerAndFilm').findAll();
 const findById = async id => {
   const rental = await Rental.scope('withCustomerAndFilm').findByPk(id);
 
-  if(!rental) throw new NotFoundError('This rental does not exist');
+  if(!rental) throw new NotFoundError('Locação inexistente');
 
   return rental;
 };

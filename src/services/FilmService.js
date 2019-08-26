@@ -28,7 +28,7 @@ const update = async (id, data) => {
 
 const findById = async id => {
   const film = await Film.scope('complete').findByPk(id)
-  if(!film) throw new NotFoundError('Film not found');
+  if(!film) throw new NotFoundError('Filme não encontrado');
 
   return film;
 };

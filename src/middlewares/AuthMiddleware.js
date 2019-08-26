@@ -5,7 +5,7 @@ import { BadRequestError } from '../handlers/errors'
 const extractJwtToken = req => {
 
   if (!Reflect.ownKeys(req.headers).includes('authorization'))
-    throw new BadRequestError('Missing authorization header');
+    throw new BadRequestError('Cabeçalho "authorization" não encontrado');
 
   const [, token] = req.headers['authorization'].split(' ');
 

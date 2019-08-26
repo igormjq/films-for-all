@@ -15,7 +15,7 @@ const findByEmail = async email => User.findOne({
 
 const isSameUser = (requestUserId, { id }) => {
   if (requestUserId !== id) 
-    throw new UnauthorizedError('Requested resource does not belong to the current user');
+    throw new UnauthorizedError('Locação solicitada não pertence a este usuário');
   
   return true;
 }; 
