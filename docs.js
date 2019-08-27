@@ -15,6 +15,11 @@
 * @apiError (400 - BAD REQUEST) ValidationError.errors[] Listagem de campos inválidos
  */
 
+ /**
+  * @apiDefine err_not_found
+  * @apiError (404 - NOT FOUND) NotFoundError Recurso não encontrado.
+  */
+
  /** Auth */
 
  /**
@@ -27,7 +32,7 @@
  * @apiSuccess {String} token JWT Token válido para futuras requisições
  * @apiSuccess {Object} user Detalhes do usuário autenticado
  * 
- * @apiSuccessExample {json} Success-Response:
+ * @apiSuccessExample {json} Exemplo - Resposta:
  *  HTTP/1.1 200 OK
  *  {
  *    "token": "...",
@@ -52,7 +57,7 @@
  * @apiSuccess {String} token JWT Token válido para futuras requisições
  * @apiSuccess {Object} user Detalhes do usuário criado e autenticado
  * 
- * @apiSuccessExample {json} Success-Response:
+ * @apiSuccessExample {json} Resposta:
  *  HTTP/1.1 200 OK
  *  {
  *    "token": "...",
@@ -76,10 +81,12 @@
 /** Films */
 
 /**
- * @api { get } /films Listagem de filmes
+ * @api { get } /films Busca todos os filmes
  * @apiGroup Filmes
  * 
- * @apiSuccess (200) {Array} data[] Listagem completa de filmes
+ * @apiDescription Retorna uma listagem completa de todos os filmes.
+ * 
+ * @apiSuccess (200 - OK) {Array} data[] Listagem completa de filmes
  * 
  * @apiSuccessExample {json} Exemplo - Resposta:
  *  HTTP/1.1 200 OK
@@ -104,8 +111,34 @@
  */
 
  /**
+ * @api { get } /films/:id Busca por id
+ * @apiGroup Filmes
+ * 
+ * @apiDescription Retorna um filme em função do id.
+ * 
+ * @apiSuccess (200 - OK) {Object} data Filme solicitado, se existente.
+ * 
+ * 
+ * @apiUse Authorization
+ * @apiUse err_not_found
+ */
+
+ /**
+  * @api {get} /films/title/:title Busca por título
+  * @apiGroup Filmes
+  * 
+  * @apiDescription Retorna um filme em função de um título. Caso não exista um filme exatamente com o nome requerido, será retornado o filme com nome mais próximo.
+  * 
+  * @apiSuccess (200 - OK) {Object} data Filme solicitado, se existente.
+  * 
+  * @apiUse Authorization
+*/
+
+ /**
  * @api { post } /films Cadastro de filme
  * @apiGroup Filmes
+ * 
+ * @apiDescription Cadastra um novo filme.
  * 
  * @apiParam {String} title Requerido. Título do filme
  * @apiParam {String} director_id Opcional. ID do diretor do filme. Não deve coexistir com o campo 'director'
@@ -132,20 +165,22 @@
  */
 
   /**
- * @api { put } /films/:filmId Edição de filme
+ * @api { put } /films/:id Edição de filme
  * @apiGroup Filmes
+ * 
+ * @apiDescription Edita um filme em função do id.
  * 
  * @apiParam {String} title Opcional. Novo título do filme
  * @apiParam {String} director_id Opcional. Novo ID do diretor do filme.
  * 
  * @apiParamExample {json} Exemplo - Edição de filme de id 2
- * // PUT films/1
+ * // PUT films/2
  * {
  *  "title": "The Curious Case of Benjamin Button",
  *   "director_id": 2
  * }
  * 
- * @apiSuccess (Resposta - 201 CREATED) {Object} data Filme editado
+ * @apiSuccess (201 - CREATED) {Object} data Filme editado
  * 
  * @apiSuccessExample {json} Exemplo - Resposta:
  *  HTTP/1.1 200 OK
@@ -168,11 +203,17 @@
  * 
  * @apiUse Authorization
  * @apiUse err_validation
+ * @apiUse err_not_found
  */
 
  /**
-  * @api {delete} /films/:filmId Exclusão de um filme
+  * @api {delete} /films/:id Exclusão de filme
   * @apiGroup Filmes
   * 
-  * @apiSuccess (204) - No content
+  * @apiDescription Remove um filme em função do id.
+  * 
+  * @apiSuccess (204 - NO CONTENT) - No content
+  * 
+  * @apiUse Authorization
+  * @apiUse err_not_found
   */
