@@ -6,7 +6,7 @@
  *    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY2ODU5MjU3LCJleHAiOjE1NjY4NjQyNTd9.PW8LXAw1M0IDen5IeeC-crXo_YbHzWx8EVgpLZkm_J4"
  * }
  * 
- * @apiError (401 - UNAUTHORIZED) UnauthorizedError Não autorizado
+ * @apiError (401 - UNAUTHORIZED) UnauthorizedError Usuário não autorizado a acessar o recurso solicitado.
  */
 
 /**
@@ -20,11 +20,14 @@
   * @apiError (404 - NOT FOUND) NotFoundError Recurso não encontrado.
   */
 
- /** Auth */
+ /**
+  * @apiDefine err_bad_request
+  * @apiError (400 - BAD REQUEST) BadRequestError Erro.
+  */
 
  /**
  * @api {post} /login Login
- * @apiGroup Auth 
+ * @apiGroup Auth
  * 
  * @apiParam {String} email E-mail do usuário a ser validado
  * @apiParam {String} password Senha do usuário
@@ -217,14 +220,70 @@
  * @apiUse err_not_found
  */
 
- /**
-  * @api {delete} /films/:id Exclusão de filme
-  * @apiGroup Filmes
-  * 
-  * @apiDescription Remove um filme em função do id.
-  * 
-  * @apiSuccess (204 - NO CONTENT) - No content
-  * 
-  * @apiUse Authorization
-  * @apiUse err_not_found
-  */
+/**
+* @api {delete} /films/:id Exclusão de filme
+* @apiGroup Filmes
+* 
+* @apiDescription Remove um filme em função do id.
+* 
+* @apiSuccess (204 - NO CONTENT) - No content
+* 
+* @apiUse Authorization
+* @apiUse err_not_found
+*/
+
+/**
+ * @api {get} /rentals Busca locações
+ * @apiGroup Aluguel
+ * 
+ * @apiDescription Lista as locações ainda não devolvidas
+ * 
+ * @apiSuccess (200 - OK) {Array} data Listagem das locações
+ * 
+ * @apiSuccessExample {json} Exemplo - Resposta:
+ *  HTTP/1.1 200 OK
+ *  {
+*    "data": [
+*        {
+*            "id": 1,
+*            "rental_date": "2019-08-26",
+*            "return_date": null,
+*            "deletedAt": null,
+*            "customer_id": 2,
+*            "film_id": 1,
+*            "customer": {
+*                "id": 2,
+*                "name": "Films Lover",
+*                "email": "films_lover@gmail.com"
+*            },
+*            "film": {
+*                "available": 0,
+*                "id": 1,
+*                "title": "Taxi Driver",
+*                "copies": 3,
+*                "rented": 3,
+*                "director_id": 2,
+*                "director": {
+*                    "id": 2,
+*                    "name": "Steven Spielberg"
+*              }
+*           }
+*        }
+*    ]
+*}
+ * 
+ * @apiUse Authorization
+ */
+
+/**
+ * @api {post} /rentals/rent/:filmId Solicita locação
+ * @apiGroup Aluguel
+ * 
+ * @apiDescription Solicita locação de um filme em função de seu id
+ * 
+ * @apiSuccess (201 - CREATED) {Object} data Detalhes da locação
+ * 
+ * @apiUse Authorization
+ * @apiUse err_not_found
+ * @apiUse err_bad_request
+ */
