@@ -1,6 +1,6 @@
 /**
  * @apiDefine Authorization
- * * @apiHeader {String} Authorization Bearer {{ token }}
+ * * @apiHeader {String} Authorization Json Web Token. Deve seguir o padrão "Bearer {{ token }}"
  * @apiHeaderExample {json} Exemplo - Cabeçalho:
  * {
  *    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY2ODU5MjU3LCJleHAiOjE1NjY4NjQyNTd9.PW8LXAw1M0IDen5IeeC-crXo_YbHzWx8EVgpLZkm_J4"
@@ -86,7 +86,7 @@
  * 
  * @apiDescription Retorna uma listagem completa de todos os filmes.
  * 
- * @apiSuccess (200 - OK) {Array} data[] Listagem completa de filmes
+ * @apiSuccess (200 - OK) {Array} data Listagem completa de filmes
  * 
  * @apiSuccessExample {json} Exemplo - Resposta:
  *  HTTP/1.1 200 OK
@@ -130,6 +130,17 @@
   * @apiDescription Retorna um filme em função de um título. Caso não exista um filme exatamente com o nome requerido, será retornado o filme com nome mais próximo.
   * 
   * @apiSuccess (200 - OK) {Object} data Filme solicitado, se existente.
+  * 
+  * @apiUse Authorization
+*/
+
+ /**
+  * @api {get} /films/available Busca por filmes disponíveis
+  * @apiGroup Filmes
+  * 
+  * @apiDescription Retorna uma lista apenas de filmes disponíveis para locação.
+  * 
+  * @apiSuccess (200 - OK) {Array} data Listagem de filmes
   * 
   * @apiUse Authorization
 */

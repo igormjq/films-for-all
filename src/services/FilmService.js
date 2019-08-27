@@ -33,7 +33,7 @@ const findById = async id => {
   return film;
 };
 
-const findAvailable = async () => Film.findAll({
+const findAvailable = async () => Film.scope('complete').findAll({
   where: {
     available: {
       [Op.gt]: 0,
