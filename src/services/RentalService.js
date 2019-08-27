@@ -15,7 +15,7 @@ const build = async (film, customer, t) => {
   return rental;
 }
 
-const list = async () => Rental.scope('withCustomerAndFilm').findAll();
+const list = async () => Rental.scope('withCustomerAndFilm').findAll({ paranoid: false });
 
 const findById = async id => {
   const rental = await Rental.scope('withCustomerAndFilm').findByPk(id);
