@@ -118,11 +118,50 @@
  * }
  * @apiParamExample {json} Exemplo - Cadastro com criação de um diretor
  * {
- *  "title": "The Fly",
+ *  "title": "The Godfather",
  *   "director": {
- *      "name": "David Cronenberg"
+ *      "name": "Francis Ford Coppola"
  *    }
  * }
+ * 
+ * @apiUse Authorization
+ * @apiUse err_validation
+ */
+
+  /**
+ * @api { put } /films/:filmId Edição de filme
+ * @apiGroup Filmes
+ * 
+ * @apiParam {String} title Opcional. Novo título do filme
+ * @apiParam {String} director_id Opcional. Novo ID do diretor do filme.
+ * 
+ * @apiParamExample {json} Exemplo - Edição de filme de id 2
+ * // PUT films/1
+ * {
+ *  "title": "The Curious Case of Benjamin Button",
+ *   "director_id": 2
+ * }
+ * 
+ * @apiSuccess (200) {Array} data[] Filme editado
+ * 
+ * @apiSuccessExample {json} Exemplo - Resposta:
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "data": [
+ *      {
+ *        "id": 2,
+ *        "title": "The Curious Case of Benjamin Button",
+ *        "copies": 5,
+ *        "rented": 2,  
+ *        "available": 3,
+ *        "director_id": 2,
+ *        "director": {
+ *          "id": 2,
+ *          "name": "David Fincher"
+ *         }
+ *      }
+ *     ]
+ *  }
  * 
  * @apiUse Authorization
  * @apiUse err_validation
