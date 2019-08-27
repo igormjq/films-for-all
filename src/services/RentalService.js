@@ -2,7 +2,7 @@ import { Rental } from '../models'
 import db from '../models'
 import FilmService from './FilmService'
 import UserService from './UserService'
-import { BadRequestError, NotFoundError } from '../handlers/errors'
+import { NotFoundError, UnprocessableEntityError } from '../handlers/errors'
 
 const build = async (film, customer, t) => {
   const rental = await Rental.build({
@@ -30,7 +30,7 @@ const rentFilm = async (filmId, user) => {
     const film = await FilmService.findById(filmId);
     const isAvailable = await FilmService.checkInventory(film);
 
-    if(!isAvailable) throw new BadRequestError('Não há cópias disponíveis deste filme em estoque');
+    if(!isAvailable) throw new UnprocessableEntityError('Não há cópias disponíveis deste filme em estoque');
 
     const rentedFilm = await FilmService.rentUnity(film, { transaction: t, lock: true });
 

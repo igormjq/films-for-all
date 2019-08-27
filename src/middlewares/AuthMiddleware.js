@@ -1,11 +1,11 @@
 import AuthService from '../services/AuthService';
 import { errorHandler } from '../handlers/errorHandler';
-import { BadRequestError } from '../handlers/errors'
+import { UnauthorizedError } from '../handlers/errors'
 
 const extractJwtToken = req => {
 
   if (!Reflect.ownKeys(req.headers).includes('authorization'))
-    throw new BadRequestError('Cabeçalho "authorization" não encontrado');
+    throw new UnauthorizedError('Cabeçalho "authorization" não encontrado');
 
   const [, token] = req.headers['authorization'].split(' ');
 

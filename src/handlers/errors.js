@@ -5,19 +5,16 @@ class CustomError extends Error {
     Error.captureStackTrace(this, this.constructor);
   }
 }
-
-export class ValidationError extends CustomError {
-  constructor(message, errors) {
-    super(message);
-    this.status = 400;
-    this.errors = errors.map(({ message, path }) => ( { message, path }));
-  }
-}
-
-export class BadRequestError extends CustomError {
+class BadRequestError extends CustomError {
   constructor(message) {
     super(message);
     this.status = 400;
+  }
+}
+export class ValidationError extends BadRequestError {
+  constructor(message, errors) {
+    super(message);
+    this.errors = errors.map(({ message, path }) => ( { message, path }));
   }
 }
 
@@ -32,5 +29,12 @@ export class UnauthorizedError extends CustomError {
   constructor(message) {
     super(message);
     this.status = 401;
+  }
+}
+
+export class UnprocessableEntityError extends CustomError {
+  constructor(message) {
+    super(message);
+    this.status = 422;
   }
 }

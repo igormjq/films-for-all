@@ -21,8 +21,8 @@
   */
 
  /**
-  * @apiDefine err_bad_request
-  * @apiError (400 - BAD REQUEST) BadRequestError Erro.
+  * @apiDefine err_unprocessable
+  * @apiError (412 - UNPROCESSABLE ENTITY) UnprocessableEntityError Não é possível realizar esta operação no momento.
   */
 
  /**
@@ -276,7 +276,7 @@
  */
 
 /**
- * @api {post} /rentals/rent/:filmId Solicita locação
+ * @api {post} /rentals/rent/:filmId Locação
  * @apiGroup Aluguel
  * 
  * @apiDescription Solicita locação de um filme em função de seu id
@@ -285,5 +285,17 @@
  * 
  * @apiUse Authorization
  * @apiUse err_not_found
- * @apiUse err_bad_request
+ * @apiUse err_unprocessable
+ */
+
+/**
+ * @api {post} /rentals/:id/return Devolução de locação
+ * @apiGroup Aluguel
+ * 
+ * @apiDescription Solicita procedimento de devolução de uma locação
+ * 
+ * @apiSuccess (200 - OK) {Object} data Detalhes da locação
+ * 
+ * @apiUse Authorization
+ * @apiUse err_unprocessable
  */
