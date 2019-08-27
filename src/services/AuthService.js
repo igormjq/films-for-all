@@ -49,6 +49,8 @@ const verifyToken = async token => {
 
     const user = await UserService.find(decoded.id);
 
+    if (user.get('token') !== token) throw new UnauthorizedError('Token invalidado em outra sessão');
+
     return user;
 
   } catch (err) {
