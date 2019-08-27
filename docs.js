@@ -6,12 +6,13 @@
  *    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTY2ODU5MjU3LCJleHAiOjE1NjY4NjQyNTd9.PW8LXAw1M0IDen5IeeC-crXo_YbHzWx8EVgpLZkm_J4"
  * }
  * 
- * @apiError UnauthorizedError Não autorizado
+ * @apiError (401 - UNAUTHORIZED) UnauthorizedError Não autorizado
  */
 
 /**
  * @apiDefine err_validation
- * @apiError ValidationError Erro de validação com descrição dos campos não adequados
+ * @apiError (400 - BAD REQUEST) ValidationError Erro de validação com descrição dos campos não adequados
+* @apiError (400 - BAD REQUEST) ValidationError.errors[] Listagem de campos inválidos
  */
 
  /** Auth */
@@ -124,6 +125,8 @@
  *    }
  * }
  * 
+ * @apiSuccess (201) {Object} data Filme criado
+ * 
  * @apiUse Authorization
  * @apiUse err_validation
  */
@@ -142,12 +145,12 @@
  *   "director_id": 2
  * }
  * 
- * @apiSuccess (200) {Array} data[] Filme editado
+ * @apiSuccess (Resposta - 201 CREATED) {Object} data Filme editado
  * 
  * @apiSuccessExample {json} Exemplo - Resposta:
  *  HTTP/1.1 200 OK
  *  {
- *    "data": [
+ *    "data": {
  *      {
  *        "id": 2,
  *        "title": "The Curious Case of Benjamin Button",
@@ -160,9 +163,16 @@
  *          "name": "David Fincher"
  *         }
  *      }
- *     ]
+ *    }
  *  }
  * 
  * @apiUse Authorization
  * @apiUse err_validation
  */
+
+ /**
+  * @api {delete} /films/:filmId Exclusão de um filme
+  * @apiGroup Filmes
+  * 
+  * @apiSuccess (204) - No content
+  */
