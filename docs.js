@@ -9,6 +9,11 @@
  * @apiError UnauthorizedError Não autorizado
  */
 
+/**
+ * @apiDefine err_validation
+ * @apiError ValidationError Erro de validação com descrição dos campos não adequados
+ */
+
  /** Auth */
 
  /**
@@ -119,6 +124,6 @@
  *    }
  * }
  * 
- * @apiParamEx
  * @apiUse Authorization
+ * @apiUse err_validation
  */
