@@ -32,8 +32,8 @@
  * @apiParam {String} email E-mail do usuário a ser validado
  * @apiParam {String} password Senha do usuário
  * 
- * @apiSuccess {String} token JWT Token válido para futuras requisições
- * @apiSuccess {Object} user Detalhes do usuário autenticado
+ * @apiSuccess (200 - OK) {String} token JWT Token válido para futuras requisições
+ * @apiSuccess (200 - OK) {Object} user Detalhes do usuário autenticado
  * 
  * @apiSuccessExample {json} Exemplo - Resposta:
  *  HTTP/1.1 200 OK
@@ -45,6 +45,15 @@
  *      "name": "Tester"
  *     }
  *  }
+ * 
+ * @apiError UnauthorizedError Usuário não encontrado. Verifique suas credenciais 
+ */
+
+ /**
+ * @api {post} /logout Logout
+ * @apiGroup Auth
+ * 
+ * @apiSuccess (204 - NO CONTENT) - No content
  * 
  * @apiError UnauthorizedError Usuário não encontrado. Verifique suas credenciais 
  */
