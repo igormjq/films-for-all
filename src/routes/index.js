@@ -12,18 +12,18 @@ import rentals from './rental';
 
 const router = Router();
 
-router.post('/login', errorHandler(AuthController.signIn));
+router.post('/login', Validate(AuthValidator.login), errorHandler(AuthController.signIn));
 
 router.post('/register', Validate(AuthValidator.register), errorHandler(AuthController.register));
 
 /**
  * Protected routes
 */
-router.use(AuthMiddleware);
+// router.use();
 
-router.post('/logout', errorHandler(AuthController.signOut));
-router.use('/films', films);
-router.use('/rentals', rentals);
+router.post('/logout', AuthMiddleware, errorHandler(AuthController.signOut));
+router.use('/films', AuthMiddleware, films);
+router.use('/rentals', AuthMiddleware, rentals);
 
 router.get('/', (req, res) => res.json({ 
   app: 'Films 4All API',
