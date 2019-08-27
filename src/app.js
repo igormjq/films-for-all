@@ -9,10 +9,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/**
+ * Documentação
+ * url: http://localhost:3000/
+ */
 app.use(express.static(docsPath));
-// app.get('/docs', (req, res) => {
-//   res.sendFile(docsPath + '/index.html');
-// })
 
 app.use('/', routes);
 

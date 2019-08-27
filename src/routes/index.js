@@ -19,15 +19,10 @@ router.post('/register', Validate(AuthValidator.register), errorHandler(AuthCont
 /**
  * Protected routes
 */
-// router.use();
+router.use(AuthMiddleware);
 
-router.post('/logout', AuthMiddleware, errorHandler(AuthController.signOut));
-router.use('/films', AuthMiddleware, films);
-router.use('/rentals', AuthMiddleware, rentals);
-
-router.get('/', (req, res) => res.json({ 
-  app: 'Films 4All API',
-  version: '1.0.0'
-}));
+router.post('/logout', errorHandler(AuthController.signOut));
+router.use('/films', films);
+router.use('/rentals', rentals);
 
 export default router;

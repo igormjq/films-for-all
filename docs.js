@@ -149,6 +149,20 @@
 */
 
  /**
+  * @api {post} /films/:filmId/inventory/add Cadastra novas cópias
+  * @apiGroup Filmes
+  * 
+  * @apiDescription Cadastra novas cópias de um filme, em função de seu id, em estoque.
+  * 
+  * @apiParam {Number} amount Requerido. Quantidade a ser adicionada.
+  * 
+  * @apiSuccess (200 - OK) {Object} data Filme atualizado com novas cópias
+  * 
+  * @apiUse Authorization
+  * @apiUse err_not_found
+*/
+
+ /**
  * @api { post } /films Cadastro de filme
  * @apiGroup Filmes
  * 
@@ -286,6 +300,8 @@
  * @apiUse Authorization
  * @apiUse err_not_found
  * @apiUse err_unprocessable
+ * 
+ * @apiError (412 - UNPROCESSABLE ENTITY) UnprocessableEntityError.message Não há cópias disponíveis deste filme em estoque
  */
 
 /**
@@ -297,5 +313,6 @@
  * @apiSuccess (200 - OK) {Object} data Detalhes da locação
  * 
  * @apiUse Authorization
+ * @apiUse err_not_found
  * @apiUse err_unprocessable
  */
