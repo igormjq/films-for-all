@@ -1,5 +1,5 @@
 # Films For All - API
-Implementação de exercício proposto de API com funcionalidades básicas para um sistema de locação de filmes.
+Implementação de exercício proposto demandando a elaboração de uma API de funcionalidades básicas para um sistema de locação de filmes.
 
 ## Requisitos
 * Node.js
@@ -16,7 +16,7 @@ $ npm install
 ```
 
 ### 2. Variáveis de ambiente
-Uma vez que dinâmicos para cada ambiente, as configurações, como palavra-chave para encriptação de tokens e credenciais do banco de dados são consumidas de um arquivo **.env**. Recomenda-se seguir este padrão. Para isso:
+Uma vez que dinâmicas conforme cada ambiente, as configurações, como palavra-chave para encriptação de tokens e credenciais do banco de dados são consumidas de um arquivo **.env**. Recomenda-se seguir este padrão. Para isso:
 
 1. Copiar o arquivo **.env.example** na raíz e nomeá-lo **.env**, ainda na raíz. 
 2. Inserir os valores no **.env** conforme setup disponível
@@ -44,7 +44,7 @@ $ npm start
 
 ## :pencil: Documentação
 
-A documentação está disponível no browser momento da inicialização do projeto sob o endpoint raíz `/`. Há também um arquivo `Postman.json` para importação no Postman.
+A documentação está disponível no browser no momento da inicialização do projeto sob o endpoint raíz `/`. Há também um arquivo `Postman.json`, com exemplos de requests, para importação no Postman.
 
 ## :zap: Scripts úteis
 
