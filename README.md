@@ -44,7 +44,7 @@ $ npm start
 
 ## :pencil: Documentação
 
-A documentação está disponível no browser momento da inicialização do projeto sob o endpoint raíz `/` 
+A documentação está disponível no browser momento da inicialização do projeto sob o endpoint raíz `/`. Há também um arquivo `Postman.json` para importação no Postman.
 
 ## :zap: Scripts úteis
 
