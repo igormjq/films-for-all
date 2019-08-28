@@ -38,13 +38,16 @@ Se preferir manualmente, o _script_ de criação do banco de dados está dispon�
 
 ### 4. Inicializar a aplicação.
 
-`$ npm start`
+```console
+$ npm start
+```
 
 ## :pencil: Documentação
 
-A documentação está disponível no momento da inicialização do projeto sob o endpoint http://localhost:PORT/. 
+A documentação está disponível no browser momento da inicialização do projeto sob o endpoint raíz `/` 
 
-## :zap: Scripts disponíveis
+## :zap: Scripts úteis
+
 A fim de abstrair comandos de execução de tarefas constantes, dispõe-se de alguns _scripts_ no arquivo `package.json`
 
 ### Criação do banco de dados
