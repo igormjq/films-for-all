@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    image: films-api
+    container_name: films-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    depends_on: 
+      - database
+
+  database:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - "./db/database_data:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=films_4all"
+    
