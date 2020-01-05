@@ -10,10 +10,13 @@ Implementação de exercício proposto demandando a elaboração de uma API de f
 Para utilizar a API em desenvolvimento, siga um dos procedimentos abaixo.
 
 ### Docker :whale:
-Para rodar a aplicação e todas suas dependências basta rodar o comando
+Para subir um __container__ da aplicação e de todas suas dependências, execute o comando
+
 ```console
 $ docker-compose up -d
 ```
+
+> Por padrão, o __container__ da API utiliza a porta **3000** e o MySQL a porta **3306**. Assim, certifique-se que essas portas estão disponíveis. Caso não queira utilizá-las, altere o mapeamento de portas no arquivo **docker-compose.yml**
 
 ### Manualmente
 
