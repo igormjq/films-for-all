@@ -7,15 +7,23 @@ Implementação de exercício proposto demandando a elaboração de uma API de f
 * MySQL
 
 ## :rocket: Setup
-Para utilizar a API em desenvolvimento, siga os procedimentos abaixo.
+Para utilizar a API em desenvolvimento, siga um dos procedimentos abaixo.
 
-### 1. Instala todas as dependências do package.json  
+### Docker :whale:
+Para rodar a aplicação e todas suas dependências basta rodar o comando
+```console
+$ docker-compose up -d
+```
+
+### Manualmente
+
+#### 1. Instala todas as dependências do package.json  
 
 ```console
 $ npm install
 ```
 
-### 2. Variáveis de ambiente
+#### 2. Variáveis de ambiente
 Uma vez que dinâmicas conforme cada ambiente, as configurações, como palavra-chave para encriptação de tokens e credenciais do banco de dados são consumidas de um arquivo **.env**. Recomenda-se seguir este padrão. Para isso:
 
 1. Copiar o arquivo **.env.example** na raíz e nomeá-lo **.env**, ainda na raíz. 
@@ -23,7 +31,7 @@ Uma vez que dinâmicas conforme cada ambiente, as configurações, como palavra-
 
 Se preferir inserir manualmente, as configurações do banco de dados estão disponíveis em `config/config.js`
 
-### 3. Inicialização do banco de dados  
+#### 3. Inicialização do banco de dados  
 Rodar, respectivamente, os seguintes comandos no terminal 
 
 ```console
@@ -36,7 +44,7 @@ $ npm run db:setup
 
 Se preferir manualmente, o _script_ de criação do banco de dados está disponível em `db/db.sql`
 
-### 4. Inicializar a aplicação.
+#### 4. Inicializar a aplicação.
 
 ```console
 $ npm start
