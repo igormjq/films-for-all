@@ -16,7 +16,18 @@ Para subir um __container__ da aplicação e de todas suas dependências, execut
 $ docker-compose up -d
 ```
 
-> Por padrão, o __container__ da API utiliza a porta **3000** e o MySQL a porta **3306**. Assim, certifique-se que essas portas estão disponíveis. Caso não queira utilizá-las, altere o mapeamento de portas no arquivo **docker-compose.yml**
+> Por padrão, o *container* da API utiliza a porta **3000** e o MySQL a porta **3306** do host. Assim, certifique-se que essas portas estão disponíveis em seu ambiente. Caso não queira utilizá-las, altere o mapeamento de portas no arquivo *docker-compose.yml*. **Não alterar as portas do container (após ':')**.
+
+```yml
+  app:
+    ...
+    ports:
+     - {PORTA_DO_HOST}:3000
+  database:
+   ...
+   ports:
+    - {PORTA_DO_HOST}:3306
+```
 
 ### Manualmente
 
