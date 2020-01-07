@@ -18,10 +18,11 @@ module.exports ={
   },
   test: {
     username: 'root',
-    password: null,
-    database: 'database_test',
-    host: '127.0.0.1',
-    dialect: 'mysql',
+    password: 'root',
+    database: 'db_test',
+    host: 'database',
+    dialect: 'sqlite',
+    storage: 'db/database_test'
   },
   production: {
     username: 'root',

@@ -10,7 +10,9 @@
     "db:migrate": "sequelize db:migrate --debug",
     "db:seed": "sequelize db:seed:all --debug",
     "db:setup": "npm-run-all db:drop db:create db:migrate db:seed",
-    "docs:generate": "apidoc -f docs.js -o docs/"
+    "db:migrate:reset": "sequelize db:migrate:undo:all && npm run db:migrate",
+    "docs:generate": "apidoc -f docs.js -o docs/",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "dependencies": {
     "@hapi/joi": "^15.1.1",
@@ -27,7 +29,20 @@
     "sequelize-cli": "^5.5.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "babel-jest": "^24.9.0",
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.1",
-    "sucrase": "^3.10.1"
+    "sqlite3": "^4.1.1",
+    "sucrase": "^3.10.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
